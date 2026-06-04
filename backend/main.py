@@ -2,7 +2,21 @@ from fastapi import FastAPI,HTTPException
 from fastapi.responses import FileResponse
 from unsplash_cover import generate_cover
 from ai_cover import generate_cover_ai
+from fastapi.middleware.cors import CORSMiddleware
+
 app=FastAPI()
+
+orgins=[
+    "http://localhost:5173"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=orgins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 @app.get("/cover",responses={200:{"content":{"image/png":{}},"description":"Generated collage cover"}},response_class=FileResponse)
 async def SPCG(mood:str, genre:str, purpose:str):
     path=generate_cover(mood,genre,purpose)

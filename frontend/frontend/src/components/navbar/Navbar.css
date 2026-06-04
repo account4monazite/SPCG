@@ -1,0 +1,17 @@
+.navbar {
+  background-color: #0a1428 !important;
+  border-bottom: 1px solid rgba(170, 59, 255, 0.1);
+}
+
+.navbar-brand {
+  color: #aa3bff !important;
+  font-weight: bold;
+}
+
+.nav-link {
+  color: #9ca3af !important;
+}
+
+.nav-link:hover {
+  color: #aa3bff !important;
+}

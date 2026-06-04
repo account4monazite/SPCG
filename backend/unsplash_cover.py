@@ -58,8 +58,12 @@ def fetch_unsplash(query: str, color: str = "", count: int = 4) -> list[str]:
 
     try:
         res = requests.get(url, headers=headers, params=params, timeout=10)
+        #print(f"[DEBUG] Status: {res.status_code}, Key present: {bool(UNSPLASH_ACCESS_KEY)}")
+       # print(f"[DEBUG] Response: {res.text[:200]}")
         data = res.json()
-        return [photo["urls"]["regular"] for photo in data.get("results", [])]
+        results = [photo["urls"]["regular"] for photo in data.get("results", [])]
+       # print(f"[DEBUG] Found {len(results)} images from Unsplash")
+        return results
     except Exception as e:
         print(f"Unsplash error: {e}")
         return []

@@ -1,5 +1,6 @@
 import requests
 import os,uuid
+from fastapi import HTTPException
 from dotenv import load_dotenv
 from prompt import build_prompt
 from PIL import Image, ImageDraw, ImageFont
@@ -43,6 +44,7 @@ def add_text(
     return image_path
 async def generate_cover_ai(mood,genre,purpose):
     prompt= build_prompt(mood,genre,purpose)
+    print("api called")
     title=f"{mood} {genre} {purpose} \n Playlist"
     fn=f"{uuid.uuid4()}.png"
     url=f"https://image.pollinations.ai/prompt/{prompt}"
@@ -55,4 +57,7 @@ async def generate_cover_ai(mood,genre,purpose):
     
         return fn
     else:
-        raise Exception(str(response.json()))
+       raise HTTPException(
+        status_code=503,
+        detail="Image generation service is busy. Please try again in a few moments."
+    )

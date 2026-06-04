@@ -25,27 +25,27 @@ MOODS = {
 }
 
 MOOD_COLORS = {
-    "dark": "#1A1A1D",        # Near-black charcoal
-    "nostalgic": "#C2B280",    # Faded sepia/sandstone
-    "dreamy": "#DCD0FF",       # Soft lavender mist
-    "lonely": "#708090",       # Slate gray
-    "romantic": "#E30B5C",     # Deep raspberry/warm rose
-    "sad": "#4682B4",          # Steel blue
-    "hopeful": "#FFF4E0",      # Soft morning parchment
-    "calm": "#B2C2BF",     
-    "happy":"#F4EC08",
-    "energetic": "#FFD700",    # Electric gold
-    "aggressive": "#800000",   # Maroon/dried blood
-    "mysterious": "#2F4F4F",   # Dark slate gray/forest fog
-    "ethereal": "#F0FFFF",     # Azure ice/white haze
-    "cozy": "#D2691E",         # Warm cinnamon/amber
-    "cold": "#A5F2F3",         # Arctic blue
-    "chaotic": "#39FF14",      # Neon glitch green
-    "euphoric": "#FF00FF",     # Vivid magenta
-    "empty": "#F5F5F5",        # Sterile off-white
-    "anxious": "#4B5320",      # Muddy olive/army green
-    "rebellious": "#121212",   # Gritty matte black
-    "spiritual": "#4B0082",    # Deep indigo/royal purple
+    "dark": "black",
+    "nostalgic": "orange",
+    "dreamy": "purple",
+    "lonely": "blue",
+    "romantic": "red",
+    "sad": "blue",
+    "hopeful": "yellow",
+    "calm": "blue",
+    "happy": "yellow",
+    "energetic": "red",
+    "aggressive": "red",
+    "mysterious": "black",
+    "ethereal": "white",
+    "cozy": "orange",
+    "cold": "cyan",
+    "chaotic": "magenta",
+    "euphoric": "magenta",
+    "empty": "white",
+    "anxious": "green",
+    "rebellious": "black",
+    "spiritual": "purple",
 }
 
 
