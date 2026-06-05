@@ -3,16 +3,22 @@
 import requests
 import os
 from io import BytesIO
+from pathlib import Path
 from dotenv import load_dotenv
 from prompt import MOODS,GENRES, PURPOSES,MOOD_COLORS
 from PIL import Image, ImageEnhance, ImageFilter,ImageDraw,ImageOps
 import random
 from PIL import ImageDraw, ImageFont
 
-load_dotenv()
+# Load backend-specific environment variables even when the app is started from the repo root
+dotenv_path = Path(__file__).resolve().parent / ".env"
+load_dotenv(dotenv_path)
 
 UNSPLASH_ACCESS_KEY = os.getenv("UNSPLASH_ACCESS_KEY", "")  # optional for demo
 PEXELS_API_KEY      = os.getenv("PEXELS_API_KEY", "")
+
+if not UNSPLASH_ACCESS_KEY:
+    print("Warning: UNSPLASH_ACCESS_KEY is not set. Unsplash will fall back to demo mode and may not return images.")
 
 
 def build_search_query(mood, genre, purpose):

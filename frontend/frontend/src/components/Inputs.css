@@ -9,8 +9,11 @@
     z-index: 10;
     backdrop-filter: blur(10px);
     border-radius: 15px;
-    height: 700px;
-    width: 700px;}
+    min-height: 700px;
+    width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
 .header{
     display:flex;
     flex-direction: column;
@@ -20,7 +23,7 @@
     margin-top:30px;
 }
 .text{
-    color: #bbc6da;
+    color: #e0baaa;
     font-size: 40px;
     font-weight: 700;
 }
@@ -28,7 +31,7 @@
     margin-top: 15px;
     width:500px;
     height:6px;
-    background: #79b6f8;
+    background: #e0baaa;
     border-radius:9px;
 }
 
@@ -45,7 +48,7 @@
     margin:auto;
     width:480px;
     height:80px;
-    background:#d5dbe8;
+    background:#b9a5d2;
     border-radius:6px;
 }
 img{
@@ -72,7 +75,7 @@ select{
 button{
     height: 25px;
     width:25px;
-    background: #152136;
+    background: #261834;
     border-width: 0px;
 }
 .submit{
@@ -82,8 +85,9 @@ button{
     align-items: center;
     width: 220px;
     height:59px;
-    color:#fff;
-    background-color: #0d409e;
+    color:#e0baaa;
+
+    background-color: #223662;
     border-radius: 50px;
     font-size: 19px;
     font-weight: 700;
@@ -91,10 +95,47 @@ button{
 }
 .cover-preview{
     margin-top: 50px;
-    text-decoration-color: #d0daed;
-    
+    text-decoration-color: #f2e199;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 #imggen{
     width: 500px;
     height: 500px;
+}
+
+.error-message {
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid #ff6b6b;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.loading-message {
+    color: #6fb8e6;
+    background: rgba(121, 182, 248, 0.1);
+    border: 1px solid #6fb8e6;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 15px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
 }

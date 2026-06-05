@@ -10,14 +10,17 @@ const Inputs =() =>{
     const [genre,setGenre]=useState('');
     const [purpose,setPurpose]=useState('');
     const [generatedImg,setGeneratedImg]=useState(null);
+    const [loading,setLoading]=useState(false);
     const VITE_API_URL = import.meta.env.VITE_API_URL;
     const apiBaseUrl = VITE_API_URL.replace(/\/+$/g, '');
     const [error,setError]=useState("");
 const handleGenerateAI = async () => {
   setError("");
+  setLoading(true);
   try{
     if (!mood || !genre || !purpose) {
     alert("Choose mood, genre, and purpose first");
+    setLoading(false);
     return;
   }
 
@@ -25,18 +28,27 @@ const handleGenerateAI = async () => {
 
   const response = await fetch(url);
   if (!response.ok) {
-    console.error("Generate AI failed", response.statusText);
+    if (response.status === 503) {
+      setError("Server is busy! Please try again later");
+    } else {
+      setError("Failed to generate image. Please try again.");
+    }
+    setLoading(false);
     return;
   }
 
   const blob = await response.blob();
   const imageUrl = URL.createObjectURL(blob);
-  setGeneratedImg(imageUrl);}catch (err){setError("Unable to connect to server!")}
+  setGeneratedImg(imageUrl);
+  setLoading(false);}catch (err){setError("Unable to connect to server!");setLoading(false);}
 };
 
 const handleGenerateCollage = async () => {
+  setError("");
+  setLoading(true);
   if (!mood || !genre || !purpose) {
     alert("Choose mood, genre, and purpose first");
+    setLoading(false);
     return;
   }
 
@@ -44,13 +56,15 @@ const handleGenerateCollage = async () => {
 
   const response = await fetch(url);
   if (!response.ok) {
-    console.error("Generate collage failed", response.statusText);
+    setError("Failed to generate collage. Please try again.");
+    setLoading(false);
     return;
   }
 
   const blob = await response.blob();
   const imageUrl = URL.createObjectURL(blob);
   setGeneratedImg(imageUrl);
+  setLoading(false);
 };
     return (
    <div className="container">
@@ -154,13 +168,27 @@ const handleGenerateCollage = async () => {
 </svg></button>
         </div>
         <div className="submit-container">
-        <div className="submit" id='AI' onClick={handleGenerateAI}>Generate with AI</div>
-        <div className="submit" id='collage' onClick={handleGenerateCollage}>Generate a collage</div>
+        <div className="submit" id='AI' onClick={handleGenerateAI} style={{opacity: loading ? 0.6 : 1, cursor: loading ? 'not-allowed' : 'pointer'}} disabled={loading}>
+          {loading ? "Generating..." : "Generate with AI"}
+        </div>
+        <div className="submit" id='collage' onClick={handleGenerateCollage} style={{opacity: loading ? 0.6 : 1, cursor: loading ? 'not-allowed' : 'pointer'}} disabled={loading}>
+          {loading ? "Generating..." : "Generate a collage"}
+        </div>
 
         </div>
+        {error && (
+          <div className="error-message">
+            {error}
+          </div>
+        )}
+        {loading && (
+          <div className="loading-message">
+            ⏳ Generating your image...
+          </div>
+        )}
         {generatedImg && (
   <div className="cover-preview">
-    <p style="color:#fff">Generated Image</p>
+    <p style={{color:'#fff'}}>Generated Image</p>
     <img id="imggen"
       src={generatedImg}
       alt="Generated Playlist Cover"

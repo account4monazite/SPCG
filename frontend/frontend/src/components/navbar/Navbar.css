@@ -1,17 +1,17 @@
 .navbar {
-  background-color: #0a1428 !important;
+  background-color: #261834 !important;
   border-bottom: 1px solid rgba(170, 59, 255, 0.1);
 }
 
 .navbar-brand {
-  color: #aa3bff !important;
+  color: #e0baaa;
   font-weight: bold;
 }
 
 .nav-link {
-  color: #9ca3af !important;
+  color: #e0baaa !important;
 }
 
 .nav-link:hover {
-  color: #aa3bff !important;
+  color: #fff !important;
 }

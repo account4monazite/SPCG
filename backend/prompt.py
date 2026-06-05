@@ -136,3 +136,23 @@ def build_prompt(mood, genre, purpose):
     minimal scenery,
     environment-focused
     """
+    
+def build_prompt_ai(mood, genre, purpose):
+
+    return f"""
+    {MOODS.get(mood, "")},
+    {GENRES.get(genre, "")},
+    {PURPOSES.get(purpose, "")},
+    minimalist album cover,
+    cinematic photography,
+    film grain,
+    highly aesthetic,
+    moody lighting,
+    high contrast,
+    establishing shot,
+    wide angle,
+    distant framing,
+    negative space,
+    minimal scenery,
+    environment-focused
+    """

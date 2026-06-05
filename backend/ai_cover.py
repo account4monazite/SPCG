@@ -1,11 +1,19 @@
 import requests
 import os,uuid
+from pathlib import Path
 from fastapi import HTTPException
 from dotenv import load_dotenv
 from prompt import build_prompt
 from PIL import Image, ImageDraw, ImageFont
-load_dotenv()
-api_key=os.getenv("stability")
+from urllib.parse import quote
+
+# Load backend-specific environment variables even when the app is started from the repo root
+dotenv_path = Path(__file__).resolve().parent / ".env"
+load_dotenv(dotenv_path)
+#api_key=os.getenv("stability")
+headers = {
+    "User-Agent": "Mozilla/5.0"
+}
 
 
 def add_text(
@@ -43,13 +51,17 @@ def add_text(
 
     return image_path
 async def generate_cover_ai(mood,genre,purpose):
-    prompt= build_prompt(mood,genre,purpose)
-    print("api called")
+    #prompt= build_prompt(mood,genre,purpose).strip()
+    prompt="dark jazz study playlist"
+    prompt=quote(prompt)
+    print("api called ",prompt)
     title=f"{mood} {genre} {purpose} \n Playlist"
-    fn=f"{uuid.uuid4()}.png"
-    url=f"https://image.pollinations.ai/prompt/{prompt}"
-    response=requests.get(url)
-
+    fn=f"cover.png"
+    url = f"https://image.pollinations.ai/prompt/{prompt}"
+    response=requests.get(url,headers=headers)
+    print("CONTENT TYPE:", response.headers.get("content-type"))
+    print("STATUS:", response.status_code)
+    print("BODY:", response.text[:500])
     if response.status_code == 200:
         with open(fn, 'wb') as file:
             file.write(response.content)
