@@ -112,11 +112,11 @@ def add_vignette(img: Image.Image):
     draw = ImageDraw.Draw(vignette)
 
     draw.ellipse(
-        (-200, -200, width + 200, height + 200),
+        (-200, -200, width + 300, height + 300),
         fill=180
     )
 
-    mask = vignette.filter(ImageFilter.GaussianBlur(90))
+    mask = vignette.filter(ImageFilter.GaussianBlur(110))
 
     overlay = Image.new("RGBA", img.size, (0, 0, 0, 35))
 
@@ -246,7 +246,7 @@ def make_collage(
         img = ImageOps.fit(img,(half, half),method=Image.Resampling.LANCZOS,centering=(0.5, 0.5))
         collage.paste(img, positions[i])
     collage=add_vignette(collage)
-    title = f"{mood.title()} {genre.title()}"
+    title = f"{mood.title()} {genre.title()} {purpose.title()}\nPlaylist"
 
     collage = add_title(collage, title)
     collage.save(output_path, quality=95)

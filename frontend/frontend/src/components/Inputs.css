@@ -78,7 +78,7 @@ button{
     background: #261834;
     border-width: 0px;
 }
-.submit{
+#save,.submit{
     display: flex;
     flex-direction: row;
     justify-content: center;

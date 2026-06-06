@@ -66,6 +66,14 @@ const handleGenerateCollage = async () => {
   setGeneratedImg(imageUrl);
   setLoading(false);
 };
+
+const handleDownload = () => {
+  const link = document.createElement('a');
+  link.href = generatedImg;
+  link.download = `${mood}-${genre}-${purpose}-cover.png`;
+  link.click();
+};
+
     return (
    <div className="container">
     <div className="header">
@@ -193,6 +201,9 @@ const handleGenerateCollage = async () => {
       src={generatedImg}
       alt="Generated Playlist Cover"
     />
+    <button type="button" id="save"onClick={handleDownload}>
+      Download Cover
+    </button>
   </div>
 )}
     </div>
