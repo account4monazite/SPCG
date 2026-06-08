@@ -1,5 +1,5 @@
 import requests
-import os,uuid
+import os,httpx
 from pathlib import Path
 from fastapi import HTTPException
 from dotenv import load_dotenv
@@ -50,26 +50,43 @@ def add_text(
     img.save(image_path)
 
     return image_path
-async def generate_cover_ai(mood,genre,purpose):
-    #prompt= build_prompt(mood,genre,purpose).strip()
-    prompt="dark jazz study playlist"
-    prompt=quote(prompt)
-    print("api called ",prompt)
-    title=f"{mood} {genre} {purpose} \n Playlist"
-    fn=f"cover.png"
-    url = f"https://image.pollinations.ai/prompt/{prompt}"
-    response=requests.get(url,headers=headers)
+async def generate_cover_ai(mood, genre, purpose):
+    prompt = build_prompt(mood, genre, purpose).strip()
+    title = f"{mood} {genre} {purpose} \n Playlist"
+    fn = f"cover.png"
+
+    try:
+        async with httpx.AsyncClient(timeout=60) as client:
+            response = await client.post(
+                "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
+                headers={"Authorization": f"Bearer {os.getenv('HF_TOKEN')}"},
+                json={"inputs": prompt}
+            )
+    except httpx.RequestError as exc:
+        print("Network error when calling Hugging Face inference:", exc)
+        raise HTTPException(
+            status_code=503,
+            detail="Unable to reach the image generation service. Please check network/DNS or try again later."
+        )
+
     print("CONTENT TYPE:", response.headers.get("content-type"))
     print("STATUS:", response.status_code)
-    print("BODY:", response.text[:500])
+
     if response.status_code == 200:
         with open(fn, 'wb') as file:
             file.write(response.content)
-        fn=add_text(fn,title)
-    
+        fn = add_text(fn, title)
         return fn
+    
+    elif response.status_code == 503:
+        # Model is loading, tell frontend to retry
+        raise HTTPException(
+            status_code=503,
+            detail="Model is loading, please try again in 20 seconds."
+        )
     else:
-       raise HTTPException(
-        status_code=503,
-        detail="Image generation service is busy. Please try again in a few moments."
-    )
+        print("BODY:", response.text[:500])
+        raise HTTPException(
+            status_code=503,
+            detail="Image generation failed. Please try again."
+        )

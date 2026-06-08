@@ -116,9 +116,9 @@ def add_vignette(img: Image.Image):
         fill=180
     )
 
-    mask = vignette.filter(ImageFilter.GaussianBlur(110))
+    mask = vignette.filter(ImageFilter.GaussianBlur(200))
 
-    overlay = Image.new("RGBA", img.size, (0, 0, 0, 35))
+    overlay = Image.new("RGBA", img.size, (0, 0, 0, 40))
 
     overlay.putalpha(vignette)
 
