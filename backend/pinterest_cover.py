@@ -1,7 +1,4 @@
-"""
-Playlist Cover Generator — Pinterest version (portfolio only, not for production)
-Scrapes Pinterest for aesthetic images based on mood, genre, and purpose.
-"""
+'''this only works in CLI'''
 
 import asyncio
 import json

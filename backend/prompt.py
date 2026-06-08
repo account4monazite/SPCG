@@ -1,4 +1,3 @@
-import random
 
 MOODS = {
     "dark": "deep shadows, melancholic atmosphere",
