@@ -15,6 +15,9 @@ headers = {
     "User-Agent": "Mozilla/5.0"
 }
 
+font_path=os.path.join(
+    os.path.dirname(__file__),"fonts","Lato-Black.ttf"
+)
 
 def add_text(
     image_path,
@@ -26,10 +29,7 @@ def add_text(
 
     draw = ImageDraw.Draw(img)
 
-    font = ImageFont.truetype(
-        "C:\\WINDOWS\\FONTS\\CANDARAL.ttf",
-        70
-    )
+    font = ImageFont.truetype(font_path,70)
 
     x, y = 80, 80
 

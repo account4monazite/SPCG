@@ -14,6 +14,9 @@ from PIL import ImageDraw, ImageFont
 dotenv_path = Path(__file__).resolve().parent / ".env"
 load_dotenv(dotenv_path)
 
+font_path=os.path.join(
+    os.path.dirname(__file__),"fonts","Lato-Black.ttf"
+)
 UNSPLASH_ACCESS_KEY = os.getenv("UNSPLASH_ACCESS_KEY", "")  # optional for demo
 PEXELS_API_KEY      = os.getenv("PEXELS_API_KEY", "")
 
@@ -206,7 +209,7 @@ def add_title(
     draw = ImageDraw.Draw(img)
 
     font = ImageFont.truetype(
-        "arial.ttf",
+        font_path,
         70
     )
 
