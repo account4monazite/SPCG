@@ -40,6 +40,9 @@ function App() {
       <div className='flex-grow flex justify-center items-center relative z-10 w-full'>
         <Inputs />
       </div>
+      <div className="mt-12 flex flex-col justify-between gap-6 border-t border-secondary pt-8 md:mt-16 md:flex-row md:items-center ">
+                    
+                    <p className="text-sm text-quaternary text-white-1000">Made by Shriya Rane :) </p></div>
     </div>
   )
 }
