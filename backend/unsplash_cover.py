@@ -10,7 +10,6 @@ from PIL import Image, ImageEnhance, ImageFilter,ImageDraw,ImageOps
 import random
 from PIL import ImageDraw, ImageFont
 
-# Load backend-specific environment variables even when the app is started from the repo root
 dotenv_path = Path(__file__).resolve().parent / ".env"
 load_dotenv(dotenv_path)
 
@@ -78,7 +77,6 @@ def fetch_unsplash(query: str, color: str = "", count: int = 4) -> list[str]:
         return []
 
 
-# ── Pexels ────────────────────────────────────────────────────────────────────
 
 def fetch_pexels(query: str, count: int = 4) -> list[str]:
     if not PEXELS_API_KEY:
@@ -97,7 +95,6 @@ def fetch_pexels(query: str, count: int = 4) -> list[str]:
         return []
 
 
-# ── Image Processing ──────────────────────────────────────────────────────────
 
 def download_image(url: str) -> Image.Image | None:
     try:
@@ -115,15 +112,15 @@ def add_vignette(img: Image.Image):
     draw = ImageDraw.Draw(vignette)
 
     draw.ellipse(
-        (-200, -200, width + 300, height + 300),
+        (-300, -300, width + 300, height + 300),
         fill=180
     )
 
     mask = vignette.filter(ImageFilter.GaussianBlur(200))
 
-    overlay = Image.new("RGBA", img.size, (0, 0, 0, 40))
+    overlay = Image.new("RGBA", img.size, (0, 0, 0, 90))
 
-    overlay.putalpha(vignette)
+    overlay.putalpha(mask)
 
     return Image.alpha_composite(
         img.convert("RGBA"),
@@ -161,7 +158,6 @@ def apply_filter(img: Image.Image, mood: str) -> Image.Image:
         "chaotic",
     }
 
-    # ── DARK ─────────────────────────────
 
     if mood in dark_moods:
 
@@ -169,10 +165,8 @@ def apply_filter(img: Image.Image, mood: str) -> Image.Image:
         img = ImageEnhance.Brightness(img).enhance(0.82)
         img = ImageEnhance.Contrast(img).enhance(1.15)
 
-        # subtle blur for cinematic softness
         img = img.filter(ImageFilter.GaussianBlur(0.3))
 
-    # ── WARM ─────────────────────────────
 
     elif mood in warm_moods:
 
@@ -180,7 +174,6 @@ def apply_filter(img: Image.Image, mood: str) -> Image.Image:
         img = ImageEnhance.Brightness(img).enhance(1.05)
         img = ImageEnhance.Contrast(img).enhance(1.05)
 
-    # ── DREAMY ───────────────────────────
 
     elif mood in dreamy_moods:
 
@@ -189,7 +182,6 @@ def apply_filter(img: Image.Image, mood: str) -> Image.Image:
 
         img = img.filter(ImageFilter.GaussianBlur(1.2))
 
-    # ── ENERGETIC ────────────────────────
 
     elif mood in energetic_moods:
 
@@ -215,7 +207,6 @@ def add_title(
 
     x, y = 80, 80
 
-    # shadow
     draw.text(
         (x + 4, y + 4),
         title,
@@ -223,7 +214,6 @@ def add_title(
         font=font
     )
 
-    # main text
     draw.text(
         (x, y),
         title,
@@ -257,7 +247,6 @@ def make_collage(
     return output_path
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
 
 def generate_cover(mood: str, genre: str, purpose: str, output: str = "cover.png"):
     q = build_search_query(mood, genre,purpose)

@@ -138,20 +138,24 @@ def build_prompt(mood, genre, purpose):
     
 def build_prompt_ai(mood, genre, purpose):
 
-    return f"""
-    {MOODS.get(mood, "")},
-    {GENRES.get(genre, "")},
-    {PURPOSES.get(purpose, "")},
-    minimalist album cover,
-    cinematic photography,
+    return """Minimalist square album cover.
+
+
+    Atmosphere: {{MOODS.get(mood, "")}}
+    Genre aesthetic:{{GENRES.get(genre, "")}}
+    Purpose: {{PURPOSES.get(purpose, "")}}
+
+    Color palette: {MOOD_COLORS[mood]}
+
+    Cinematic photography,
     film grain,
-    highly aesthetic,
-    moody lighting,
-    high contrast,
-    establishing shot,
-    wide angle,
-    distant framing,
     negative space,
-    minimal scenery,
-    environment-focused
+    single focal point,
+    professional album artwork,
+    clean composition,
+
+    no text,
+    no typography,
+    no watermark,
+    no logo
     """
