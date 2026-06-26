@@ -5,7 +5,22 @@ A full-stack playlist cover generator with:
 - a FastAPI backend
 - collage-based cover generation using Unsplash/Pexels
 - optional AI cover generation using Hugging Face inference
+  
+## How it works:
+You open the link: https://playlist-cover-generator-nine.vercel.app/
+<img width="1600" height="739" alt="image" src="https://github.com/user-attachments/assets/4eff3f68-21c1-423a-8bd8-1c6dc11631c3" />
 
+- Enter Mood, Genre and the Purpose(work,study, coding,etc) of the playlist
+  <img width="931" height="565" alt="image" src="https://github.com/user-attachments/assets/e293dfcd-628c-4afc-abb8-9f45f0d9f4bd" />
+
+- Generate an image via AI or a Collage 
+ <img width="931" height="732" alt="image" src="https://github.com/user-attachments/assets/4a704515-5be2-4ea8-a1ee-a4b55cf39c47" />
+
+- Design is generated
+  <img width="934" height="538" alt="image" src="https://github.com/user-attachments/assets/836edcb0-b9b4-4e9e-9a97-b6938f981e7a" />
+<img width="907" height="423" alt="image" src="https://github.com/user-attachments/assets/bf83d386-99a0-4842-85d9-e75b8860f102" />
+
+- Download it :)
 ## Structure
 
 - `backend/`
@@ -102,17 +117,10 @@ npm run dev
 ## Notes
 
 - The frontend sends requests to the backend using `VITE_API_URL`
-- If `api-inference.huggingface.co` cannot be resolved, the AI endpoint will fail with a DNS/network error
-- On Windows, verify DNS with:
-
-```cmd
-nslookup api-inference.huggingface.co 8.8.8.8
-```
 
 ## Troubleshooting
 
 - If the frontend cannot load images, confirm the backend is running and `VITE_API_URL` points to the correct server
-- If the AI route fails, confirm `HF_TOKEN` is valid and `api-inference.huggingface.co` is reachable
 - If image search fails, confirm API keys and network access
 
 ## Development notes
